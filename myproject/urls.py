@@ -7,6 +7,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('myapp/', include('myapp.urls')),  # Include your app's URLs
+    path('', home, name='home'),  # Route für die Wurzel-URL
 ]
 
 urlpatterns += staticfiles_urlpatterns()

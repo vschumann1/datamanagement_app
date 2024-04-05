@@ -25,8 +25,8 @@ mapbox_access_token = 'pk.eyJ1IjoiYW5ka29jaDkzIiwiYSI6ImNsMTZiNnU4dTE5MzQzY3MwZn
 def get_model_fields(model):
     return [field for field in model._meta.get_fields() if field.concrete and not field.name.startswith('_')]
 
-def home(request):
-    return HttpResponse("Willkommen auf meiner Website!")
+#def home(request):
+#    return HttpResponse("Willkommen auf meiner Website!")
 
 
 

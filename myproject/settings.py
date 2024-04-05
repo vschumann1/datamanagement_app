@@ -83,7 +83,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-WSGI_APPLICATION = "myproject.myproject.wsgi.application"
+WSGI_APPLICATION = "myproject.wsgi.application"
 
 
 # Database

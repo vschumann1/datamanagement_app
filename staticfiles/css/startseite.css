@@ -1,0 +1,104 @@
+/* myapp/static/css/startseite.css */
+
+/* Apply a font to the whole body */
+/* Apply a font to the whole body */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f4f4f4;
+    margin-top: 50px;
+    font-weight: 400; /* Normal font weight */
+    line-height: 1.6; /* Default line height */
+}
+
+  
+  /* Header styles */
+  header {
+    background: linear-gradient(180deg, #003366 0%, #000033 100%); /* Gradient from dark blue to lighter blue */ 
+    color: #fff;
+    padding: 20px 0;
+    border-radius: 10px 10px 10px 10px;
+    height: 100px;
+  }
+  
+  /* Main title */
+  header h1 {
+    margin: 0;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 20px;
+  }
+  
+  /* Search section styles */
+  .search-section {
+    margin: 30px 0;
+    border-radius: 10px 10px 10px 10px;
+  }
+  
+  /* Style the search input field */
+  .search-section .form-control {
+    border-radius: 20px 0 0 20px;
+    padding: 0px;
+    border: none;
+    width: 400px;
+    height: 40px;
+    margin-left: 30px;
+  }
+  
+  /* Style the search button */
+  .search-section .btn {
+    border-radius: 0 20px 20px 0;
+    border: none;
+    background: #0055b3; /* Slightly lighter blue */
+    color: #fff;
+    padding: 0px;
+    height: 40px;
+    width: 80px;
+  }
+  
+  /* Make the button stand out on hover */
+  .search-section .btn:hover {
+    background: #007bff;
+    color: #ffffff;
+  }
+  
+  /* Topics section styles */
+  .topics .card {
+    background: #ffffff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out; /* Add this line */
+    margin: 30px;
+    
+    
+}
+
+  
+  .topics .card-body {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .topics .card-title {
+    color: #003366; /* Use the same dark blue color for consistency */
+    font-size: 24px
+  }
+  
+
+
+  .topics .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4) !important; /* Larger shadow on hover */
+    transform: scale(1.02) !important; /* Slightly increase scale on hover */
+    border-color: #003366 !important; /* Change border color on hover */
+    border-width: 2px !important; /* Set border width */
+    border-style: solid !important; /* Set border style */
+}
+
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .topics .card {
+      margin-bottom: 20px;
+    }
+  }
+  

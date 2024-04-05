@@ -1,0 +1,59 @@
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Land</th>
+            <th>EIU</th>
+            <th>Region</th>
+            <th>Netz</th>
+            <th>Str NR</th>
+            <th>Str Kurzname</th>
+            <th>Str KM Anf</th>
+            <th>Str KM End</th>
+            <th>Von KM</th>
+            <th>Bis KM</th>
+            <th>Von KM I</th>
+            <th>Bis KM I</th>
+            <th>RI</th>
+            <th>Laenge</th>
+            <th>DB Betrieb</th>
+            <th>ISK Netz</th>
+            <th>Bahnnutzung</th>
+            <th>Betreiberart</th>
+            <th>Sonderfall</th>
+            <th>Sonst Vertr</th>
+            <th>Ausland</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for gsl in gsl_list %}
+        <tr>
+            <td>{{ gsl.land }}</td>
+            <td>{{ gsl.eiu }}</td>
+            <td>{{ gsl.region }}</td>
+            <td>{{ gsl.netz }}</td>
+            <td>{{ gsl.str_nr }}</td>
+            <td>{{ gsl.str_kurzname }}</td>
+            <td>{{ gsl.str_km_anf }}</td>
+            <td>{{ gsl.str_km_end }}</td>
+            <td>{{ gsl.von_km }}</td>
+            <td>{{ gsl.bis_km }}</td>
+            <td>{{ gsl.von_km_i }}</td>
+            <td>{{ gsl.bis_km_i }}</td>
+            <td>{{ gsl.ri }}</td>
+            <td>{{ gsl.laenge }}</td>
+            <td>{{ gsl.db_betrieb }}</td>
+            <td>{{ gsl.isk_netz }}</td>
+            <td>{{ gsl.bahnnutzung }}</td>
+            <td>{{ gsl.betreiberart }}</td>
+            <td>{{ gsl.sonderfall }}</td>
+            <td>{{ gsl.sonst_vertr }}</td>
+            <td>{{ gsl.ausland }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

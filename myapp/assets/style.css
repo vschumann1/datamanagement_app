@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #003366; /* Dark gray font color */
+}
+
+
+
+.card-hover:hover, .card-hover:hover .card {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4) !important; /* Larger shadow on hover */
+    transform: scale(1.02) !important; /* Slightly increase scale on hover */
+    border-color: #003366 !important; /* Change border color on hover */
+    border-width: 2px !important; /* Set border width */
+    border-style: solid !important; /* Set border style */
+}
+
+.radio-items .radio-input {
+    margin-right: 10px;
+    accent-color: #003366;  /* Custom accent color for the radio button */
+}
+
+.radio-items .radio-label {
+    display: inline-block !important;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 20px;
+}
+
+.radio-items .radio-label:hover,
+.radio-items .radio-input:checked + .radio-label {
+    background-color: #e2e6ea;  /* Slightly darker background on hover/select */
+}
+
+.radio-items .radio-label:last-child {
+    margin-bottom: 0;
+}
+
+.radio-container {
+    display: flex !important;
+    flex-wrap: wrap !important; /* Allows items to wrap onto the next line if space runs out */
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Aligns items vertically */
+}
+
+
+
+
+
+
+
+

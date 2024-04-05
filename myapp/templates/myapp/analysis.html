@@ -1,0 +1,1985 @@
+<html><head>
+  {% load static %}
+  {% load humanize %}
+  {% load crispy_forms_tags %}
+  {% load custom_filters %}
+  {% load my_custom_filters %}
+
+
+  
+  <!-- Bootstrap CSS CDN (adjust version as needed) -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <link href="{% static 'myapp/css/main.css' %}" rel="stylesheet">
+  <style type="text/css">svg:not(:root).svg-inline--fa {
+  overflow: visible;
+}
+
+.table-responsive {
+  overflow-x: auto; /* Enables horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
+}
+  
+.filter-form .form-group {
+          display: flex;
+          align-items: center;
+          margin-bottom: 0rem;
+      }
+      .filter-form .form-group label {
+          margin-right: 1rem;
+      }
+.container {
+    margin-top: 20px;
+}
+.filter-form {
+    margin-bottom: 0px;
+}
+.filter-form .form-group {
+    margin-right: 20px; /* Adds margin between each filter field */
+}
+.pagination {
+    margin: 20px 0;
+}
+.table {
+    margin-top: 20px;
+}
+th {
+    background-color: #003366; /* Change this color to your preferred header color */
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #003366;
+}
+.step-links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
+
+
+
+</style><style>input.dash-input:invalid {
+    outline: solid red;
+}
+
+input.dash-input:valid {
+    outline: none black;
+}
+
+</style><style>.dash-logout-btn {
+    padding: 1rem;
+    background-color: rgb(0, 51, 102);
+    border: 1px solid rgb(0, 51, 102);
+    color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.dash-logout-btn:hover, .dash-logout-btn:focus {
+    background-color: rgb(0, 51, 102);
+    border: 1px solid rgb(0, 51, 102);
+}
+
+.dash-logout-frame {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9jb21wb25lbnRzL2Nzcy9sb2dvdXQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLHlCQUF5QjtJQUN6Qix5QkFBeUI7SUFDekIsY0FBYztJQUNkLGFBQWE7SUFDYixlQUFlO0lBQ2Ysa0JBQWtCO0FBQ3RCOztBQUVBO0lBQ0kseUJBQXlCO0lBQ3pCLHlCQUF5QjtBQUM3Qjs7QUFFQTtJQUNJLGNBQWM7SUFDZCxVQUFVO0lBQ1YsU0FBUztBQUNiIiwic291cmNlc0NvbnRlbnQiOlsiLmRhc2gtbG9nb3V0LWJ0biB7XG4gICAgcGFkZGluZzogMXJlbTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMTE5REZGO1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICMxMTlERkY7XG4gICAgY29sb3I6ICNmZmZmZmY7XG4gICAgb3V0bGluZTogbm9uZTtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4uZGFzaC1sb2dvdXQtYnRuOmhvdmVyLCAuZGFzaC1sb2dvdXQtYnRuOmZvY3VzIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMGQ3NmJmO1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICMwZDc2YmY7XG59XG5cbi5kYXNoLWxvZ291dC1mcmFtZSB7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgcGFkZGluZzogMDtcbiAgICBtYXJnaW46IDA7XG59XG4iXSwic291cmNlUm9vdCI6IiJ9 */</style><style>.Select,.Select-control{position:relative}.Select-control,.Select-input>input{width:100%;cursor:default;outline:0}.Select-arrow-zone,.Select-clear-zone,.Select-loading-zone{text-align:center;cursor:pointer}.Select,.Select div,.Select input,.Select span{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.Select.is-disabled>.Select-control{background-color:#f9f9f9}.Select.is-disabled>.Select-control:hover{box-shadow:none}.Select.is-disabled .Select-arrow-zone{cursor:default;pointer-events:none;opacity:.35}.Select-control{background-color:#fff;border-radius:4px;border:1px solid #ccc;color:#333;display:table;border-spacing:0;border-collapse:separate;height:36px;overflow:hidden}.is-searchable.is-focused:not(.is-open)>.Select-control,.is-searchable.is-open>.Select-control{cursor:text}.Select-control:hover{box-shadow:0 1px 0 rgba(0,0,0,.06)}.Select-control .Select-input:focus{outline:0}.is-open>.Select-control{border-bottom-right-radius:0;border-bottom-left-radius:0;background:#fff;border-color:#b3b3b3 #ccc #d9d9d9}.is-open>.Select-control .Select-arrow{top:-2px;border-color:transparent transparent #999;border-width:0 5px 5px}.is-focused:not(.is-open)>.Select-control{border-color:#007eff;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 0 3px rgba(0,126,255,.1)}.Select--single>.Select-control .Select-value,.Select-placeholder{bottom:0;color:#aaa;left:0;line-height:34px;padding-left:10px;padding-right:10px;position:absolute;right:0;top:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.has-value.Select--single>.Select-control .Select-value .Select-value-label,.has-value.is-pseudo-focused.Select--single>.Select-control .Select-value .Select-value-label{color:#333}.has-value.Select--single>.Select-control .Select-value a.Select-value-label,.has-value.is-pseudo-focused.Select--single>.Select-control .Select-value a.Select-value-label{cursor:pointer;text-decoration:none}.has-value.Select--single>.Select-control .Select-value a.Select-value-label:focus,.has-value.Select--single>.Select-control .Select-value a.Select-value-label:hover,.has-value.is-pseudo-focused.Select--single>.Select-control .Select-value a.Select-value-label:focus,.has-value.is-pseudo-focused.Select--single>.Select-control .Select-value a.Select-value-label:hover{color:#007eff;outline:0;text-decoration:underline}.Select-input{height:34px;padding-left:10px;padding-right:10px;vertical-align:middle}.Select-input>input{background:none;border:0;box-shadow:none;display:inline-block;font-family:inherit;font-size:inherit;margin:0;line-height:14px;padding:8px 0 12px}.Select-loading,.Select-loading-zone{width:16px;position:relative;vertical-align:middle}.is-focused .Select-input>input{cursor:text}.has-value.is-pseudo-focused .Select-input{opacity:0}.Select-control:not(.is-searchable)>.Select-input{outline:0}.Select-loading-zone{display:table-cell}.Select-loading{-webkit-animation:Select-animation-spin .4s infinite linear;-o-animation:Select-animation-spin .4s infinite linear;animation:Select-animation-spin .4s infinite linear;height:16px;box-sizing:border-box;border-radius:50%;border:2px solid #ccc;border-right-color:#333;display:inline-block}.Select-clear-zone{-webkit-animation:Select-animation-fadeIn .2s;-o-animation:Select-animation-fadeIn .2s;animation:Select-animation-fadeIn .2s;color:#999;display:table-cell;position:relative;vertical-align:middle;width:17px}.Select-clear-zone:hover{color:#D0021B}.Select-clear{display:inline-block;font-size:18px;line-height:1}.Select--multi .Select-clear-zone{width:17px}.Select-arrow-zone{display:table-cell;position:relative;vertical-align:middle;width:25px;padding-right:5px}.Select--multi .Select-multi-value-wrapper,.Select-arrow{display:inline-block}.Select-arrow{border-color:#999 transparent transparent;border-style:solid;border-width:5px 5px 2.5px;height:0;width:0;position:relative}.Select-arrow-zone:hover>.Select-arrow,.is-open .Select-arrow{border-top-color:#666}.Select .Select-aria-only{display:inline-block;height:1px;width:1px;margin:-1px;clip:rect(0,0,0,0);overflow:hidden}.Select-noresults,.Select-option{box-sizing:border-box;display:block;padding:8px 10px}@-webkit-keyframes Select-animation-fadeIn{from{opacity:0}to{opacity:1}}@keyframes Select-animation-fadeIn{from{opacity:0}to{opacity:1}}.Select-menu-outer{border-bottom-right-radius:4px;border-bottom-left-radius:4px;background-color:#fff;border:1px solid #ccc;border-top-color:#e6e6e6;box-shadow:0 1px 0 rgba(0,0,0,.06);box-sizing:border-box;margin-top:-1px;max-height:200px;position:absolute;top:100%;width:100%;z-index:1;-webkit-overflow-scrolling:touch}.Select-menu{max-height:198px;overflow-y:auto}.Select-option{background-color:#fff;color:#666;cursor:pointer}.Select-option:last-child{border-bottom-right-radius:4px;border-bottom-left-radius:4px}.Select-option.is-selected{background-color:#f5faff;background-color:rgba(0,126,255,.04);color:#333}.Select-option.is-focused{background-color:#ebf5ff;background-color:rgba(0,126,255,.08);color:#333}.Select-option.is-disabled{color:#ccc;cursor:default}.Select-noresults{color:#999;cursor:default}.Select--multi .Select-input{vertical-align:middle;margin-left:10px;padding:0}.Select--multi.has-value .Select-input{margin-left:5px}.Select--multi .Select-value{background-color:#ebf5ff;background-color:rgba(0,126,255,.08);border-radius:2px;border:1px solid #c2e0ff;border:1px solid rgba(0,126,255,.24);color:#007eff;display:inline-block;font-size:.9em;line-height:1.4;margin-left:5px;margin-top:5px;vertical-align:top}.Select--multi .Select-value-icon,.Select--multi .Select-value-label{display:inline-block;vertical-align:middle}.Select--multi .Select-value-label{border-bottom-right-radius:2px;border-top-right-radius:2px;cursor:default;padding:2px 5px}.Select--multi a.Select-value-label{color:#007eff;cursor:pointer;text-decoration:none}.Select--multi a.Select-value-label:hover{text-decoration:underline}.Select--multi .Select-value-icon{cursor:pointer;border-bottom-left-radius:2px;border-top-left-radius:2px;border-right:1px solid #c2e0ff;border-right:1px solid rgba(0,126,255,.24);padding:1px 5px 3px}.Select--multi .Select-value-icon:focus,.Select--multi .Select-value-icon:hover{background-color:#d8eafd;background-color:rgba(0,113,230,.08);color:#0071e6}.Select--multi .Select-value-icon:active{background-color:#c2e0ff;background-color:rgba(0,126,255,.24)}.Select--multi.is-disabled .Select-value{background-color:#fcfcfc;border:1px solid #e3e3e3;color:#333}.Select--multi.is-disabled .Select-value-icon{cursor:not-allowed;border-right:1px solid #e3e3e3}.Select--multi.is-disabled .Select-value-icon:active,.Select--multi.is-disabled .Select-value-icon:focus,.Select--multi.is-disabled .Select-value-icon:hover{background-color:#fcfcfc}@keyframes Select-animation-spin{to{transform:rotate(1turn)}}@-webkit-keyframes Select-animation-spin{to{-webkit-transform:rotate(1turn)}}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9jb21wb25lbnRzL2Nzcy9yZWFjdC1zZWxlY3RAMS4wLjAtcmMuMy5taW4uY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLHdCQUF3QixpQkFBaUIsQ0FBQyxvQ0FBb0MsVUFBVSxDQUFDLGNBQWMsQ0FBQyxTQUFTLENBQUMsMkRBQTJELGlCQUFpQixDQUFDLGNBQWMsQ0FBQywrQ0FBK0MsNkJBQTZCLENBQUMsMEJBQTBCLENBQUMscUJBQXFCLENBQUMsb0NBQW9DLHdCQUF3QixDQUFDLDBDQUEwQyxlQUFlLENBQUMsdUNBQXVDLGNBQWMsQ0FBQyxtQkFBbUIsQ0FBQyxXQUFXLENBQUMsZ0JBQWdCLHFCQUFxQixDQUFDLGlCQUFpQixDQUFDLHFCQUFxQixDQUFDLFVBQVUsQ0FBQyxhQUFhLENBQUMsZ0JBQWdCLENBQUMsd0JBQXdCLENBQUMsV0FBVyxDQUFDLGVBQWUsQ0FBQywrRkFBK0YsV0FBVyxDQUFDLHNCQUFzQixrQ0FBa0MsQ0FBQyxvQ0FBb0MsU0FBUyxDQUFDLHlCQUF5Qiw0QkFBNEIsQ0FBQywyQkFBMkIsQ0FBQyxlQUFlLENBQUMsaUNBQWlDLENBQUMsdUNBQXVDLFFBQVEsQ0FBQyx5Q0FBeUMsQ0FBQyxzQkFBc0IsQ0FBQywwQ0FBMEMsb0JBQW9CLENBQUMsd0VBQXdFLENBQUMsa0VBQWtFLFFBQVEsQ0FBQyxVQUFVLENBQUMsTUFBTSxDQUFDLGdCQUFnQixDQUFDLGlCQUFpQixDQUFDLGtCQUFrQixDQUFDLGlCQUFpQixDQUFDLE9BQU8sQ0FBQyxLQUFLLENBQUMsY0FBYyxDQUFDLGVBQWUsQ0FBQyxzQkFBc0IsQ0FBQyxrQkFBa0IsQ0FBQywwS0FBMEssVUFBVSxDQUFDLDRLQUE0SyxjQUFjLENBQUMsb0JBQW9CLENBQUMsZ1hBQWdYLGFBQWEsQ0FBQyxTQUFTLENBQUMseUJBQXlCLENBQUMsY0FBYyxXQUFXLENBQUMsaUJBQWlCLENBQUMsa0JBQWtCLENBQUMscUJBQXFCLENBQUMsb0JBQW9CLGVBQWUsQ0FBQyxRQUFRLENBQUMsZUFBZSxDQUFDLG9CQUFvQixDQUFDLG1CQUFtQixDQUFDLGlCQUFpQixDQUFDLFFBQVEsQ0FBQyxnQkFBZ0IsQ0FBQyxrQkFBa0IsQ0FBQyx1QkFBdUIsQ0FBQyxxQ0FBcUMsVUFBVSxDQUFDLGlCQUFpQixDQUFDLHFCQUFxQixDQUFDLGdDQUFnQyxXQUFXLENBQUMsMkNBQTJDLFNBQVMsQ0FBQyxrREFBa0QsU0FBUyxDQUFDLHFCQUFxQixrQkFBa0IsQ0FBQyxnQkFBZ0IsMkRBQTJELENBQUMsc0RBQXNELENBQUMsbURBQW1ELENBQUMsV0FBVyxDQUFDLHFCQUFxQixDQUFDLGlCQUFpQixDQUFDLHFCQUFxQixDQUFDLHVCQUF1QixDQUFDLG9CQUFvQixDQUFDLG1CQUFtQiw2Q0FBNkMsQ0FBQyx3Q0FBd0MsQ0FBQyxxQ0FBcUMsQ0FBQyxVQUFVLENBQUMsa0JBQWtCLENBQUMsaUJBQWlCLENBQUMscUJBQXFCLENBQUMsVUFBVSxDQUFDLHlCQUF5QixhQUFhLENBQUMsY0FBYyxvQkFBb0IsQ0FBQyxjQUFjLENBQUMsYUFBYSxDQUFDLGtDQUFrQyxVQUFVLENBQUMsbUJBQW1CLGtCQUFrQixDQUFDLGlCQUFpQixDQUFDLHFCQUFxQixDQUFDLFVBQVUsQ0FBQyxpQkFBaUIsQ0FBQyx5REFBeUQsb0JBQW9CLENBQUMsY0FBYyx5Q0FBeUMsQ0FBQyxrQkFBa0IsQ0FBQywwQkFBMEIsQ0FBQyxRQUFRLENBQUMsT0FBTyxDQUFDLGlCQUFpQixDQUFDLDhEQUE4RCxxQkFBcUIsQ0FBQywwQkFBMEIsb0JBQW9CLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxXQUFXLENBQUMsa0JBQWtCLENBQUMsZUFBZSxDQUFDLFVBQVUsQ0FBQyxpQ0FBaUMscUJBQXFCLENBQUMsYUFBYSxDQUFDLGdCQUFnQixDQUFDLDJDQUEyQyxLQUFLLFNBQVMsQ0FBQyxHQUFHLFNBQVMsQ0FBQyxDQUFDLG1DQUFtQyxLQUFLLFNBQVMsQ0FBQyxHQUFHLFNBQVMsQ0FBQyxDQUFDLG1CQUFtQiw4QkFBOEIsQ0FBQyw2QkFBNkIsQ0FBQyxxQkFBcUIsQ0FBQyxxQkFBcUIsQ0FBQyx3QkFBd0IsQ0FBQyxrQ0FBa0MsQ0FBQyxxQkFBcUIsQ0FBQyxlQUFlLENBQUMsZ0JBQWdCLENBQUMsaUJBQWlCLENBQUMsUUFBUSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsZ0NBQWdDLENBQUMsYUFBYSxnQkFBZ0IsQ0FBQyxlQUFlLENBQUMsZUFBZSxxQkFBcUIsQ0FBQyxVQUFVLENBQUMsY0FBYyxDQUFDLDBCQUEwQiw4QkFBOEIsQ0FBQyw2QkFBNkIsQ0FBQywyQkFBMkIsd0JBQXdCLENBQUMsb0NBQW9DLENBQUMsVUFBVSxDQUFDLDBCQUEwQix3QkFBd0IsQ0FBQyxvQ0FBb0MsQ0FBQyxVQUFVLENBQUMsMkJBQTJCLFVBQVUsQ0FBQyxjQUFjLENBQUMsa0JBQWtCLFVBQVUsQ0FBQyxjQUFjLENBQUMsNkJBQTZCLHFCQUFxQixDQUFDLGdCQUFnQixDQUFDLFNBQVMsQ0FBQyx1Q0FBdUMsZUFBZSxDQUFDLDZCQUE2Qix3QkFBd0IsQ0FBQyxvQ0FBb0MsQ0FBQyxpQkFBaUIsQ0FBQyx3QkFBd0IsQ0FBQyxvQ0FBb0MsQ0FBQyxhQUFhLENBQUMsb0JBQW9CLENBQUMsY0FBYyxDQUFDLGVBQWUsQ0FBQyxlQUFlLENBQUMsY0FBYyxDQUFDLGtCQUFrQixDQUFDLHFFQUFxRSxvQkFBb0IsQ0FBQyxxQkFBcUIsQ0FBQyxtQ0FBbUMsOEJBQThCLENBQUMsMkJBQTJCLENBQUMsY0FBYyxDQUFDLGVBQWUsQ0FBQyxvQ0FBb0MsYUFBYSxDQUFDLGNBQWMsQ0FBQyxvQkFBb0IsQ0FBQywwQ0FBMEMseUJBQXlCLENBQUMsa0NBQWtDLGNBQWMsQ0FBQyw2QkFBNkIsQ0FBQywwQkFBMEIsQ0FBQyw4QkFBOEIsQ0FBQywwQ0FBMEMsQ0FBQyxtQkFBbUIsQ0FBQyxnRkFBZ0Ysd0JBQXdCLENBQUMsb0NBQW9DLENBQUMsYUFBYSxDQUFDLHlDQUF5Qyx3QkFBd0IsQ0FBQyxvQ0FBb0MsQ0FBQyx5Q0FBeUMsd0JBQXdCLENBQUMsd0JBQXdCLENBQUMsVUFBVSxDQUFDLDhDQUE4QyxrQkFBa0IsQ0FBQyw4QkFBOEIsQ0FBQyw2SkFBNkosd0JBQXdCLENBQUMsaUNBQWlDLEdBQUcsdUJBQXVCLENBQUMsQ0FBQyx5Q0FBeUMsR0FBRywrQkFBK0IsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi5TZWxlY3QsLlNlbGVjdC1jb250cm9se3Bvc2l0aW9uOnJlbGF0aXZlfS5TZWxlY3QtY29udHJvbCwuU2VsZWN0LWlucHV0PmlucHV0e3dpZHRoOjEwMCU7Y3Vyc29yOmRlZmF1bHQ7b3V0bGluZTowfS5TZWxlY3QtYXJyb3ctem9uZSwuU2VsZWN0LWNsZWFyLXpvbmUsLlNlbGVjdC1sb2FkaW5nLXpvbmV7dGV4dC1hbGlnbjpjZW50ZXI7Y3Vyc29yOnBvaW50ZXJ9LlNlbGVjdCwuU2VsZWN0IGRpdiwuU2VsZWN0IGlucHV0LC5TZWxlY3Qgc3Bhbnstd2Via2l0LWJveC1zaXppbmc6Ym9yZGVyLWJveDstbW96LWJveC1zaXppbmc6Ym9yZGVyLWJveDtib3gtc2l6aW5nOmJvcmRlci1ib3h9LlNlbGVjdC5pcy1kaXNhYmxlZD4uU2VsZWN0LWNvbnRyb2x7YmFja2dyb3VuZC1jb2xvcjojZjlmOWY5fS5TZWxlY3QuaXMtZGlzYWJsZWQ+LlNlbGVjdC1jb250cm9sOmhvdmVye2JveC1zaGFkb3c6bm9uZX0uU2VsZWN0LmlzLWRpc2FibGVkIC5TZWxlY3QtYXJyb3ctem9uZXtjdXJzb3I6ZGVmYXVsdDtwb2ludGVyLWV2ZW50czpub25lO29wYWNpdHk6LjM1fS5TZWxlY3QtY29udHJvbHtiYWNrZ3JvdW5kLWNvbG9yOiNmZmY7Ym9yZGVyLXJhZGl1czo0cHg7Ym9yZGVyOjFweCBzb2xpZCAjY2NjO2NvbG9yOiMzMzM7ZGlzcGxheTp0YWJsZTtib3JkZXItc3BhY2luZzowO2JvcmRlci1jb2xsYXBzZTpzZXBhcmF0ZTtoZWlnaHQ6MzZweDtvdmVyZmxvdzpoaWRkZW59LmlzLXNlYXJjaGFibGUuaXMtZm9jdXNlZDpub3QoLmlzLW9wZW4pPi5TZWxlY3QtY29udHJvbCwuaXMtc2VhcmNoYWJsZS5pcy1vcGVuPi5TZWxlY3QtY29udHJvbHtjdXJzb3I6dGV4dH0uU2VsZWN0LWNvbnRyb2w6aG92ZXJ7Ym94LXNoYWRvdzowIDFweCAwIHJnYmEoMCwwLDAsLjA2KX0uU2VsZWN0LWNvbnRyb2wgLlNlbGVjdC1pbnB1dDpmb2N1c3tvdXRsaW5lOjB9LmlzLW9wZW4+LlNlbGVjdC1jb250cm9se2JvcmRlci1ib3R0b20tcmlnaHQtcmFkaXVzOjA7Ym9yZGVyLWJvdHRvbS1sZWZ0LXJhZGl1czowO2JhY2tncm91bmQ6I2ZmZjtib3JkZXItY29sb3I6I2IzYjNiMyAjY2NjICNkOWQ5ZDl9LmlzLW9wZW4+LlNlbGVjdC1jb250cm9sIC5TZWxlY3QtYXJyb3d7dG9wOi0ycHg7Ym9yZGVyLWNvbG9yOnRyYW5zcGFyZW50IHRyYW5zcGFyZW50ICM5OTk7Ym9yZGVyLXdpZHRoOjAgNXB4IDVweH0uaXMtZm9jdXNlZDpub3QoLmlzLW9wZW4pPi5TZWxlY3QtY29udHJvbHtib3JkZXItY29sb3I6IzAwN2VmZjtib3gtc2hhZG93Omluc2V0IDAgMXB4IDFweCByZ2JhKDAsMCwwLC4wNzUpLDAgMCAwIDNweCByZ2JhKDAsMTI2LDI1NSwuMSl9LlNlbGVjdC0tc2luZ2xlPi5TZWxlY3QtY29udHJvbCAuU2VsZWN0LXZhbHVlLC5TZWxlY3QtcGxhY2Vob2xkZXJ7Ym90dG9tOjA7Y29sb3I6I2FhYTtsZWZ0OjA7bGluZS1oZWlnaHQ6MzRweDtwYWRkaW5nLWxlZnQ6MTBweDtwYWRkaW5nLXJpZ2h0OjEwcHg7cG9zaXRpb246YWJzb2x1dGU7cmlnaHQ6MDt0b3A6MDttYXgtd2lkdGg6MTAwJTtvdmVyZmxvdzpoaWRkZW47dGV4dC1vdmVyZmxvdzplbGxpcHNpczt3aGl0ZS1zcGFjZTpub3dyYXB9Lmhhcy12YWx1ZS5TZWxlY3QtLXNpbmdsZT4uU2VsZWN0LWNvbnRyb2wgLlNlbGVjdC12YWx1ZSAuU2VsZWN0LXZhbHVlLWxhYmVsLC5oYXMtdmFsdWUuaXMtcHNldWRvLWZvY3VzZWQuU2VsZWN0LS1zaW5nbGU+LlNlbGVjdC1jb250cm9sIC5TZWxlY3QtdmFsdWUgLlNlbGVjdC12YWx1ZS1sYWJlbHtjb2xvcjojMzMzfS5oYXMtdmFsdWUuU2VsZWN0LS1zaW5nbGU+LlNlbGVjdC1jb250cm9sIC5TZWxlY3QtdmFsdWUgYS5TZWxlY3QtdmFsdWUtbGFiZWwsLmhhcy12YWx1ZS5pcy1wc2V1ZG8tZm9jdXNlZC5TZWxlY3QtLXNpbmdsZT4uU2VsZWN0LWNvbnRyb2wgLlNlbGVjdC12YWx1ZSBhLlNlbGVjdC12YWx1ZS1sYWJlbHtjdXJzb3I6cG9pbnRlcjt0ZXh0LWRlY29yYXRpb246bm9uZX0uaGFzLXZhbHVlLlNlbGVjdC0tc2luZ2xlPi5TZWxlY3QtY29udHJvbCAuU2VsZWN0LXZhbHVlIGEuU2VsZWN0LXZhbHVlLWxhYmVsOmZvY3VzLC5oYXMtdmFsdWUuU2VsZWN0LS1zaW5nbGU+LlNlbGVjdC1jb250cm9sIC5TZWxlY3QtdmFsdWUgYS5TZWxlY3QtdmFsdWUtbGFiZWw6aG92ZXIsLmhhcy12YWx1ZS5pcy1wc2V1ZG8tZm9jdXNlZC5TZWxlY3QtLXNpbmdsZT4uU2VsZWN0LWNvbnRyb2wgLlNlbGVjdC12YWx1ZSBhLlNlbGVjdC12YWx1ZS1sYWJlbDpmb2N1cywuaGFzLXZhbHVlLmlzLXBzZXVkby1mb2N1c2VkLlNlbGVjdC0tc2luZ2xlPi5TZWxlY3QtY29udHJvbCAuU2VsZWN0LXZhbHVlIGEuU2VsZWN0LXZhbHVlLWxhYmVsOmhvdmVye2NvbG9yOiMwMDdlZmY7b3V0bGluZTowO3RleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmV9LlNlbGVjdC1pbnB1dHtoZWlnaHQ6MzRweDtwYWRkaW5nLWxlZnQ6MTBweDtwYWRkaW5nLXJpZ2h0OjEwcHg7dmVydGljYWwtYWxpZ246bWlkZGxlfS5TZWxlY3QtaW5wdXQ+aW5wdXR7YmFja2dyb3VuZDpub25lO2JvcmRlcjowO2JveC1zaGFkb3c6bm9uZTtkaXNwbGF5OmlubGluZS1ibG9jaztmb250LWZhbWlseTppbmhlcml0O2ZvbnQtc2l6ZTppbmhlcml0O21hcmdpbjowO2xpbmUtaGVpZ2h0OjE0cHg7cGFkZGluZzo4cHggMCAxMnB4Oy13ZWJraXQtYXBwZWFyYW5jZTpub25lfS5TZWxlY3QtbG9hZGluZywuU2VsZWN0LWxvYWRpbmctem9uZXt3aWR0aDoxNnB4O3Bvc2l0aW9uOnJlbGF0aXZlO3ZlcnRpY2FsLWFsaWduOm1pZGRsZX0uaXMtZm9jdXNlZCAuU2VsZWN0LWlucHV0PmlucHV0e2N1cnNvcjp0ZXh0fS5oYXMtdmFsdWUuaXMtcHNldWRvLWZvY3VzZWQgLlNlbGVjdC1pbnB1dHtvcGFjaXR5OjB9LlNlbGVjdC1jb250cm9sOm5vdCguaXMtc2VhcmNoYWJsZSk+LlNlbGVjdC1pbnB1dHtvdXRsaW5lOjB9LlNlbGVjdC1sb2FkaW5nLXpvbmV7ZGlzcGxheTp0YWJsZS1jZWxsfS5TZWxlY3QtbG9hZGluZ3std2Via2l0LWFuaW1hdGlvbjpTZWxlY3QtYW5pbWF0aW9uLXNwaW4gLjRzIGluZmluaXRlIGxpbmVhcjstby1hbmltYXRpb246U2VsZWN0LWFuaW1hdGlvbi1zcGluIC40cyBpbmZpbml0ZSBsaW5lYXI7YW5pbWF0aW9uOlNlbGVjdC1hbmltYXRpb24tc3BpbiAuNHMgaW5maW5pdGUgbGluZWFyO2hlaWdodDoxNnB4O2JveC1zaXppbmc6Ym9yZGVyLWJveDtib3JkZXItcmFkaXVzOjUwJTtib3JkZXI6MnB4IHNvbGlkICNjY2M7Ym9yZGVyLXJpZ2h0LWNvbG9yOiMzMzM7ZGlzcGxheTppbmxpbmUtYmxvY2t9LlNlbGVjdC1jbGVhci16b25ley13ZWJraXQtYW5pbWF0aW9uOlNlbGVjdC1hbmltYXRpb24tZmFkZUluIC4yczstby1hbmltYXRpb246U2VsZWN0LWFuaW1hdGlvbi1mYWRlSW4gLjJzO2FuaW1hdGlvbjpTZWxlY3QtYW5pbWF0aW9uLWZhZGVJbiAuMnM7Y29sb3I6Izk5OTtkaXNwbGF5OnRhYmxlLWNlbGw7cG9zaXRpb246cmVsYXRpdmU7dmVydGljYWwtYWxpZ246bWlkZGxlO3dpZHRoOjE3cHh9LlNlbGVjdC1jbGVhci16b25lOmhvdmVye2NvbG9yOiNEMDAyMUJ9LlNlbGVjdC1jbGVhcntkaXNwbGF5OmlubGluZS1ibG9jaztmb250LXNpemU6MThweDtsaW5lLWhlaWdodDoxfS5TZWxlY3QtLW11bHRpIC5TZWxlY3QtY2xlYXItem9uZXt3aWR0aDoxN3B4fS5TZWxlY3QtYXJyb3ctem9uZXtkaXNwbGF5OnRhYmxlLWNlbGw7cG9zaXRpb246cmVsYXRpdmU7dmVydGljYWwtYWxpZ246bWlkZGxlO3dpZHRoOjI1cHg7cGFkZGluZy1yaWdodDo1cHh9LlNlbGVjdC0tbXVsdGkgLlNlbGVjdC1tdWx0aS12YWx1ZS13cmFwcGVyLC5TZWxlY3QtYXJyb3d7ZGlzcGxheTppbmxpbmUtYmxvY2t9LlNlbGVjdC1hcnJvd3tib3JkZXItY29sb3I6Izk5OSB0cmFuc3BhcmVudCB0cmFuc3BhcmVudDtib3JkZXItc3R5bGU6c29saWQ7Ym9yZGVyLXdpZHRoOjVweCA1cHggMi41cHg7aGVpZ2h0OjA7d2lkdGg6MDtwb3NpdGlvbjpyZWxhdGl2ZX0uU2VsZWN0LWFycm93LXpvbmU6aG92ZXI+LlNlbGVjdC1hcnJvdywuaXMtb3BlbiAuU2VsZWN0LWFycm93e2JvcmRlci10b3AtY29sb3I6IzY2Nn0uU2VsZWN0IC5TZWxlY3QtYXJpYS1vbmx5e2Rpc3BsYXk6aW5saW5lLWJsb2NrO2hlaWdodDoxcHg7d2lkdGg6MXB4O21hcmdpbjotMXB4O2NsaXA6cmVjdCgwLDAsMCwwKTtvdmVyZmxvdzpoaWRkZW47ZmxvYXQ6bGVmdH0uU2VsZWN0LW5vcmVzdWx0cywuU2VsZWN0LW9wdGlvbntib3gtc2l6aW5nOmJvcmRlci1ib3g7ZGlzcGxheTpibG9jaztwYWRkaW5nOjhweCAxMHB4fUAtd2Via2l0LWtleWZyYW1lcyBTZWxlY3QtYW5pbWF0aW9uLWZhZGVJbntmcm9te29wYWNpdHk6MH10b3tvcGFjaXR5OjF9fUBrZXlmcmFtZXMgU2VsZWN0LWFuaW1hdGlvbi1mYWRlSW57ZnJvbXtvcGFjaXR5OjB9dG97b3BhY2l0eToxfX0uU2VsZWN0LW1lbnUtb3V0ZXJ7Ym9yZGVyLWJvdHRvbS1yaWdodC1yYWRpdXM6NHB4O2JvcmRlci1ib3R0b20tbGVmdC1yYWRpdXM6NHB4O2JhY2tncm91bmQtY29sb3I6I2ZmZjtib3JkZXI6MXB4IHNvbGlkICNjY2M7Ym9yZGVyLXRvcC1jb2xvcjojZTZlNmU2O2JveC1zaGFkb3c6MCAxcHggMCByZ2JhKDAsMCwwLC4wNik7Ym94LXNpemluZzpib3JkZXItYm94O21hcmdpbi10b3A6LTFweDttYXgtaGVpZ2h0OjIwMHB4O3Bvc2l0aW9uOmFic29sdXRlO3RvcDoxMDAlO3dpZHRoOjEwMCU7ei1pbmRleDoxOy13ZWJraXQtb3ZlcmZsb3ctc2Nyb2xsaW5nOnRvdWNofS5TZWxlY3QtbWVudXttYXgtaGVpZ2h0OjE5OHB4O292ZXJmbG93LXk6YXV0b30uU2VsZWN0LW9wdGlvbntiYWNrZ3JvdW5kLWNvbG9yOiNmZmY7Y29sb3I6IzY2NjtjdXJzb3I6cG9pbnRlcn0uU2VsZWN0LW9wdGlvbjpsYXN0LWNoaWxke2JvcmRlci1ib3R0b20tcmlnaHQtcmFkaXVzOjRweDtib3JkZXItYm90dG9tLWxlZnQtcmFkaXVzOjRweH0uU2VsZWN0LW9wdGlvbi5pcy1zZWxlY3RlZHtiYWNrZ3JvdW5kLWNvbG9yOiNmNWZhZmY7YmFja2dyb3VuZC1jb2xvcjpyZ2JhKDAsMTI2LDI1NSwuMDQpO2NvbG9yOiMzMzN9LlNlbGVjdC1vcHRpb24uaXMtZm9jdXNlZHtiYWNrZ3JvdW5kLWNvbG9yOiNlYmY1ZmY7YmFja2dyb3VuZC1jb2xvcjpyZ2JhKDAsMTI2LDI1NSwuMDgpO2NvbG9yOiMzMzN9LlNlbGVjdC1vcHRpb24uaXMtZGlzYWJsZWR7Y29sb3I6I2NjYztjdXJzb3I6ZGVmYXVsdH0uU2VsZWN0LW5vcmVzdWx0c3tjb2xvcjojOTk5O2N1cnNvcjpkZWZhdWx0fS5TZWxlY3QtLW11bHRpIC5TZWxlY3QtaW5wdXR7dmVydGljYWwtYWxpZ246bWlkZGxlO21hcmdpbi1sZWZ0OjEwcHg7cGFkZGluZzowfS5TZWxlY3QtLW11bHRpLmhhcy12YWx1ZSAuU2VsZWN0LWlucHV0e21hcmdpbi1sZWZ0OjVweH0uU2VsZWN0LS1tdWx0aSAuU2VsZWN0LXZhbHVle2JhY2tncm91bmQtY29sb3I6I2ViZjVmZjtiYWNrZ3JvdW5kLWNvbG9yOnJnYmEoMCwxMjYsMjU1LC4wOCk7Ym9yZGVyLXJhZGl1czoycHg7Ym9yZGVyOjFweCBzb2xpZCAjYzJlMGZmO2JvcmRlcjoxcHggc29saWQgcmdiYSgwLDEyNiwyNTUsLjI0KTtjb2xvcjojMDA3ZWZmO2Rpc3BsYXk6aW5saW5lLWJsb2NrO2ZvbnQtc2l6ZTouOWVtO2xpbmUtaGVpZ2h0OjEuNDttYXJnaW4tbGVmdDo1cHg7bWFyZ2luLXRvcDo1cHg7dmVydGljYWwtYWxpZ246dG9wfS5TZWxlY3QtLW11bHRpIC5TZWxlY3QtdmFsdWUtaWNvbiwuU2VsZWN0LS1tdWx0aSAuU2VsZWN0LXZhbHVlLWxhYmVse2Rpc3BsYXk6aW5saW5lLWJsb2NrO3ZlcnRpY2FsLWFsaWduOm1pZGRsZX0uU2VsZWN0LS1tdWx0aSAuU2VsZWN0LXZhbHVlLWxhYmVse2JvcmRlci1ib3R0b20tcmlnaHQtcmFkaXVzOjJweDtib3JkZXItdG9wLXJpZ2h0LXJhZGl1czoycHg7Y3Vyc29yOmRlZmF1bHQ7cGFkZGluZzoycHggNXB4fS5TZWxlY3QtLW11bHRpIGEuU2VsZWN0LXZhbHVlLWxhYmVse2NvbG9yOiMwMDdlZmY7Y3Vyc29yOnBvaW50ZXI7dGV4dC1kZWNvcmF0aW9uOm5vbmV9LlNlbGVjdC0tbXVsdGkgYS5TZWxlY3QtdmFsdWUtbGFiZWw6aG92ZXJ7dGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZX0uU2VsZWN0LS1tdWx0aSAuU2VsZWN0LXZhbHVlLWljb257Y3Vyc29yOnBvaW50ZXI7Ym9yZGVyLWJvdHRvbS1sZWZ0LXJhZGl1czoycHg7Ym9yZGVyLXRvcC1sZWZ0LXJhZGl1czoycHg7Ym9yZGVyLXJpZ2h0OjFweCBzb2xpZCAjYzJlMGZmO2JvcmRlci1yaWdodDoxcHggc29saWQgcmdiYSgwLDEyNiwyNTUsLjI0KTtwYWRkaW5nOjFweCA1cHggM3B4fS5TZWxlY3QtLW11bHRpIC5TZWxlY3QtdmFsdWUtaWNvbjpmb2N1cywuU2VsZWN0LS1tdWx0aSAuU2VsZWN0LXZhbHVlLWljb246aG92ZXJ7YmFja2dyb3VuZC1jb2xvcjojZDhlYWZkO2JhY2tncm91bmQtY29sb3I6cmdiYSgwLDExMywyMzAsLjA4KTtjb2xvcjojMDA3MWU2fS5TZWxlY3QtLW11bHRpIC5TZWxlY3QtdmFsdWUtaWNvbjphY3RpdmV7YmFja2dyb3VuZC1jb2xvcjojYzJlMGZmO2JhY2tncm91bmQtY29sb3I6cmdiYSgwLDEyNiwyNTUsLjI0KX0uU2VsZWN0LS1tdWx0aS5pcy1kaXNhYmxlZCAuU2VsZWN0LXZhbHVle2JhY2tncm91bmQtY29sb3I6I2ZjZmNmYztib3JkZXI6MXB4IHNvbGlkICNlM2UzZTM7Y29sb3I6IzMzM30uU2VsZWN0LS1tdWx0aS5pcy1kaXNhYmxlZCAuU2VsZWN0LXZhbHVlLWljb257Y3Vyc29yOm5vdC1hbGxvd2VkO2JvcmRlci1yaWdodDoxcHggc29saWQgI2UzZTNlM30uU2VsZWN0LS1tdWx0aS5pcy1kaXNhYmxlZCAuU2VsZWN0LXZhbHVlLWljb246YWN0aXZlLC5TZWxlY3QtLW11bHRpLmlzLWRpc2FibGVkIC5TZWxlY3QtdmFsdWUtaWNvbjpmb2N1cywuU2VsZWN0LS1tdWx0aS5pcy1kaXNhYmxlZCAuU2VsZWN0LXZhbHVlLWljb246aG92ZXJ7YmFja2dyb3VuZC1jb2xvcjojZmNmY2ZjfUBrZXlmcmFtZXMgU2VsZWN0LWFuaW1hdGlvbi1zcGlue3Rve3RyYW5zZm9ybTpyb3RhdGUoMXR1cm4pfX1ALXdlYmtpdC1rZXlmcmFtZXMgU2VsZWN0LWFuaW1hdGlvbi1zcGlue3Rvey13ZWJraXQtdHJhbnNmb3JtOnJvdGF0ZSgxdHVybil9fSJdLCJzb3VyY2VSb290IjoiIn0= */</style><style>/* Fix the default tooltip style height conflicting with the actual size of the tooltip. */
+.rc-slider-tooltip-content > .rc-slider-tooltip-inner {
+    height: unset;
+    min-height: 20px;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9jb21wb25lbnRzL2Nzcy9zbGlkZXJzLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSwwRkFBMEY7QUFDMUY7SUFDSSxhQUFhO0lBQ2IsZ0JBQWdCO0FBQ3BCIiwic291cmNlc0NvbnRlbnQiOlsiLyogRml4IHRoZSBkZWZhdWx0IHRvb2x0aXAgc3R5bGUgaGVpZ2h0IGNvbmZsaWN0aW5nIHdpdGggdGhlIGFjdHVhbCBzaXplIG9mIHRoZSB0b29sdGlwLiAqL1xuLnJjLXNsaWRlci10b29sdGlwLWNvbnRlbnQgPiAucmMtc2xpZGVyLXRvb2x0aXAtaW5uZXIge1xuICAgIGhlaWdodDogdW5zZXQ7XG4gICAgbWluLWhlaWdodDogMjBweDtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style><style>.PresetDateRangePicker_panel {
+  padding: 0 22px 11px
+}
+.PresetDateRangePicker_button {
+  position: relative;
+  height: 100%;
+  text-align: center;
+  background: 0 0;
+  border: 2px solid rgb(0, 51, 102);
+  color: rgb(0, 51, 102);
+  padding: 4px 12px;
+  margin-right: 8px;
+  font: inherit;
+  font-weight: 700;
+  line-height: normal;
+  overflow: visible;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer
+}
+.PresetDateRangePicker_button:active {
+  outline: 0
+}
+.PresetDateRangePicker_button__selected {
+  color: #fff;
+  background: #00a699
+}
+.SingleDatePickerInput {
+  display: inline-block;
+  background-color: #fff
+}
+.SingleDatePickerInput__withBorder {
+  border-radius: 2px;
+  border: 1px solid #dbdbdb
+}
+.SingleDatePickerInput__rtl {
+  direction: rtl
+}
+.SingleDatePickerInput__disabled {
+  background-color: #f2f2f2
+}
+.SingleDatePickerInput__block {
+  display: block
+}
+.SingleDatePickerInput__showClearDate {
+  padding-right: 30px
+}
+.SingleDatePickerInput_clearDate {
+  background: 0 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 10px 0 5px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%)
+}
+.SingleDatePickerInput_clearDate__default:focus,
+.SingleDatePickerInput_clearDate__default:hover {
+  background: #dbdbdb;
+  border-radius: 50%
+}
+.SingleDatePickerInput_clearDate__small {
+  padding: 6px
+}
+.SingleDatePickerInput_clearDate__hide {
+  visibility: hidden
+}
+.SingleDatePickerInput_clearDate_svg {
+  fill: #82888a;
+  height: 12px;
+  width: 15px;
+  vertical-align: middle
+}
+.SingleDatePickerInput_clearDate_svg__small {
+  height: 9px
+}
+.SingleDatePickerInput_calendarIcon {
+  background: 0 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 10px;
+  margin: 0 5px 0 10px
+}
+.SingleDatePickerInput_calendarIcon_svg {
+  fill: #82888a;
+  height: 15px;
+  width: 14px;
+  vertical-align: middle
+}
+.SingleDatePicker {
+  position: relative;
+  display: inline-block
+}
+.SingleDatePicker__block {
+  display: block
+}
+.SingleDatePicker_picker {
+  z-index: 1;
+  background-color: #fff;
+  position: absolute
+}
+.SingleDatePicker_picker__rtl {
+  direction: rtl
+}
+.SingleDatePicker_picker__directionLeft {
+  left: 0
+}
+.SingleDatePicker_picker__directionRight {
+  right: 0
+}
+.SingleDatePicker_picker__portal {
+  background-color: rgba(0,0,0,.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%
+}
+.SingleDatePicker_picker__fullScreenPortal {
+  background-color: #fff
+}
+.SingleDatePicker_closeButton {
+  background: 0 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px;
+  z-index: 2
+}
+.SingleDatePicker_closeButton:focus,
+.SingleDatePicker_closeButton:hover {
+  color: darken(#cacccd,10%);
+  text-decoration: none
+}
+.SingleDatePicker_closeButton_svg {
+  height: 15px;
+  width: 15px;
+  fill: #cacccd
+}
+.DayPickerKeyboardShortcuts_buttonReset {
+  background: 0 0;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  cursor: pointer;
+  font-size: 14px
+}
+.DayPickerKeyboardShortcuts_buttonReset:active {
+  outline: 0
+}
+.DayPickerKeyboardShortcuts_show {
+  width: 33px;
+  height: 26px;
+  position: absolute;
+  z-index: 2
+}
+.DayPickerKeyboardShortcuts_show::before {
+  content: "";
+  display: block;
+  position: absolute
+}
+.DayPickerKeyboardShortcuts_show__bottomRight {
+  bottom: 0;
+  right: 0
+}
+.DayPickerKeyboardShortcuts_show__bottomRight::before {
+  border-top: 26px solid transparent;
+  border-right: 33px solid #00a699;
+  bottom: 0;
+  right: 0
+}
+.DayPickerKeyboardShortcuts_show__bottomRight:hover::before {
+  border-right: 33px solid #008489
+}
+.DayPickerKeyboardShortcuts_show__topRight {
+  top: 0;
+  right: 0
+}
+.DayPickerKeyboardShortcuts_show__topRight::before {
+  border-bottom: 26px solid transparent;
+  border-right: 33px solid #00a699;
+  top: 0;
+  right: 0
+}
+.DayPickerKeyboardShortcuts_show__topRight:hover::before {
+  border-right: 33px solid #008489
+}
+.DayPickerKeyboardShortcuts_show__topLeft {
+  top: 0;
+  left: 0
+}
+.DayPickerKeyboardShortcuts_show__topLeft::before {
+  border-bottom: 26px solid transparent;
+  border-left: 33px solid #00a699;
+  top: 0;
+  left: 0
+}
+.DayPickerKeyboardShortcuts_show__topLeft:hover::before {
+  border-left: 33px solid #008489
+}
+.DayPickerKeyboardShortcuts_showSpan {
+  color: #fff;
+  position: absolute
+}
+.DayPickerKeyboardShortcuts_showSpan__bottomRight {
+  bottom: 0;
+  right: 5px
+}
+.DayPickerKeyboardShortcuts_showSpan__topRight {
+  top: 1px;
+  right: 5px
+}
+.DayPickerKeyboardShortcuts_showSpan__topLeft {
+  top: 1px;
+  left: 5px
+}
+.DayPickerKeyboardShortcuts_panel {
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  padding: 22px;
+  margin: 33px;
+  text-align: left
+}
+.DayPickerKeyboardShortcuts_title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0
+}
+.DayPickerKeyboardShortcuts_list {
+  list-style: none;
+  padding: 0;
+  font-size: 14px
+}
+.DayPickerKeyboardShortcuts_close {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  z-index: 2
+}
+.DayPickerKeyboardShortcuts_close:active {
+  outline: 0
+}
+.DayPickerKeyboardShortcuts_closeSvg {
+  height: 15px;
+  width: 15px;
+  fill: #cacccd
+}
+.DayPickerKeyboardShortcuts_closeSvg:focus,
+.DayPickerKeyboardShortcuts_closeSvg:hover {
+  fill: #82888a
+}
+.CalendarDay {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center
+}
+.CalendarDay:active {
+  outline: 0
+}
+.CalendarDay__defaultCursor {
+  cursor: default
+}
+.CalendarDay__default {
+  border: 1px solid #e4e7e7;
+  color: #484848;
+  background: #fff
+}
+.CalendarDay__default:hover {
+  background: #e4e7e7;
+  border: 1px solid #e4e7e7;
+  color: inherit
+}
+.CalendarDay__hovered_offset {
+  background: #f4f5f5;
+  border: 1px double #e4e7e7;
+  color: inherit
+}
+.CalendarDay__outside {
+  border: 0;
+  background: #fff;
+  color: #484848
+}
+.CalendarDay__outside:hover {
+  border: 0
+}
+.CalendarDay__blocked_minimum_nights {
+  background: #fff;
+  border: 1px solid #eceeee;
+  color: #cacccd
+}
+.CalendarDay__blocked_minimum_nights:active,
+.CalendarDay__blocked_minimum_nights:hover {
+  background: #fff;
+  color: #cacccd
+}
+.CalendarDay__highlighted_calendar {
+  background: #ffe8bc;
+  color: #484848
+}
+.CalendarDay__highlighted_calendar:active,
+.CalendarDay__highlighted_calendar:hover {
+  background: #ffce71;
+  color: #484848
+}
+.CalendarDay__selected_span {
+  background: #66e2da;
+  border: 1px double #33dacd;
+  color: #fff
+}
+.CalendarDay__selected_span:active,
+.CalendarDay__selected_span:hover {
+  background: #33dacd;
+  border: 1px double #33dacd;
+  color: #fff
+}
+.CalendarDay__selected,
+.CalendarDay__selected:active,
+.CalendarDay__selected:hover {
+  background: #00a699;
+  border: 1px double #00a699;
+  color: #fff
+}
+.CalendarDay__hovered_span,
+.CalendarDay__hovered_span:hover {
+  background: #b2f1ec;
+  border: 1px double #80e8e0;
+  color: #007a87
+}
+.CalendarDay__hovered_span:active {
+  background: #80e8e0;
+  border: 1px double #80e8e0;
+  color: #007a87
+}
+.CalendarDay__blocked_calendar,
+.CalendarDay__blocked_calendar:active,
+.CalendarDay__blocked_calendar:hover {
+  background: #cacccd;
+  border: 1px solid #cacccd;
+  color: #82888a
+}
+.CalendarDay__blocked_out_of_range,
+.CalendarDay__blocked_out_of_range:active,
+.CalendarDay__blocked_out_of_range:hover {
+  background: #fff;
+  border: 1px solid #e4e7e7;
+  color: #cacccd
+}
+.CalendarDay__hovered_start_first_possible_end {
+  background: #eceeee;
+  border: 1px double #eceeee
+}
+.CalendarDay__hovered_start_blocked_min_nights {
+  background: #eceeee;
+  border: 1px double #e4e7e7
+}
+.CalendarMonth {
+  background: #fff;
+  text-align: center;
+  vertical-align: top;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none
+}
+.CalendarMonth_table {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+.CalendarMonth_verticalSpacing {
+  border-collapse: separate
+}
+.CalendarMonth_caption {
+  color: #484848;
+  font-size: 18px;
+  text-align: center;
+  padding-top: 22px;
+  padding-bottom: 37px;
+  caption-side: initial
+}
+.CalendarMonth_caption__verticalScrollable {
+  padding-top: 12px;
+  padding-bottom: 7px
+}
+.CalendarMonthGrid {
+  background: #fff;
+  text-align: left;
+  z-index: 0
+}
+.CalendarMonthGrid__animating {
+  z-index: 1
+}
+.CalendarMonthGrid__horizontal {
+  position: absolute;
+  left: 9px
+}
+.CalendarMonthGrid__vertical,
+.CalendarMonthGrid__vertical_scrollable {
+  margin: 0 auto
+}
+.CalendarMonthGrid_month__horizontal {
+  display: inline-block;
+  vertical-align: top;
+  min-height: 100%
+}
+.CalendarMonthGrid_month__hideForAnimation {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none
+}
+.CalendarMonthGrid_month__hidden {
+  visibility: hidden
+}
+.DayPickerNavigation {
+  position: relative;
+  z-index: 2
+}
+.DayPickerNavigation__horizontal {
+  height: 0
+}
+.DayPickerNavigation__verticalScrollable_prevNav {
+  z-index: 1
+}
+.DayPickerNavigation__verticalDefault {
+  position: absolute;
+  width: 100%;
+  height: 52px;
+  bottom: 0;
+  left: 0
+}
+.DayPickerNavigation__verticalScrollableDefault {
+  position: relative
+}
+.DayPickerNavigation__bottom {
+  height: auto
+}
+.DayPickerNavigation__bottomDefault {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between
+}
+.DayPickerNavigation_button {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 0;
+  padding: 0;
+  margin: 0
+}
+.DayPickerNavigation_button__default {
+  border: 1px solid #e4e7e7;
+  background-color: #fff;
+  color: #757575
+}
+.DayPickerNavigation_button__default:focus,
+.DayPickerNavigation_button__default:hover {
+  border: 1px solid #c4c4c4
+}
+.DayPickerNavigation_button__default:active {
+  background: #f2f2f2
+}
+.DayPickerNavigation_button__disabled {
+  cursor: default;
+  border: 1px solid #f2f2f2
+}
+.DayPickerNavigation_button__disabled:focus,
+.DayPickerNavigation_button__disabled:hover {
+  border: 1px solid #f2f2f2
+}
+.DayPickerNavigation_button__disabled:active {
+  background: 0 0
+}
+.DayPickerNavigation_button__horizontalDefault {
+  position: absolute;
+  top: 18px;
+  line-height: .78;
+  border-radius: 3px;
+  padding: 6px 9px
+}
+.DayPickerNavigation_bottomButton__horizontalDefault {
+  position: static;
+  margin: -10px 22px 30px
+}
+.DayPickerNavigation_leftButton__horizontalDefault {
+  left: 22px
+}
+.DayPickerNavigation_rightButton__horizontalDefault {
+  right: 22px
+}
+.DayPickerNavigation_button__verticalDefault {
+  padding: 5px;
+  background: #fff;
+  box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  height: 100%;
+  width: 50%
+}
+.DayPickerNavigation_nextButton__verticalDefault {
+  border-left: 0
+}
+.DayPickerNavigation_nextButton__verticalScrollableDefault,
+.DayPickerNavigation_prevButton__verticalScrollableDefault {
+  width: 100%
+}
+.DayPickerNavigation_svg__horizontal {
+  height: 19px;
+  width: 19px;
+  fill: #82888a;
+  display: block
+}
+.DayPickerNavigation_svg__vertical {
+  height: 42px;
+  width: 42px;
+  fill: #484848
+}
+.DayPickerNavigation_svg__disabled {
+  fill: #f2f2f2
+}
+.DayPicker {
+  background: #fff;
+  position: relative;
+  text-align: left
+}
+.DayPicker__horizontal {
+  background: #fff
+}
+.DayPicker__verticalScrollable {
+  height: 100%
+}
+.DayPicker__hidden {
+  visibility: hidden
+}
+.DayPicker__withBorder {
+  box-shadow: 0 2px 6px rgba(0,0,0,.05),0 0 0 1px rgba(0,0,0,.07);
+  border-radius: 3px
+}
+.DayPicker_portal__horizontal {
+  box-shadow: none;
+  position: absolute;
+  left: 50%;
+  top: 50%
+}
+.DayPicker_portal__vertical {
+  position: initial
+}
+.DayPicker_focusRegion {
+  outline: 0
+}
+.DayPicker_calendarInfo__horizontal,
+.DayPicker_wrapper__horizontal {
+  display: inline-block;
+  vertical-align: top
+}
+.DayPicker_weekHeaders {
+  position: relative
+}
+.DayPicker_weekHeaders__horizontal {
+  margin-left: 9px
+}
+.DayPicker_weekHeader {
+  color: #757575;
+  position: absolute;
+  top: 62px;
+  z-index: 2;
+  text-align: left
+}
+.DayPicker_weekHeader__vertical {
+  left: 50%
+}
+.DayPicker_weekHeader__verticalScrollable {
+  top: 0;
+  display: table-row;
+  border-bottom: 1px solid #dbdbdb;
+  background: #fff;
+  margin-left: 0;
+  left: 0;
+  width: 100%;
+  text-align: center
+}
+.DayPicker_weekHeader_ul {
+  list-style: none;
+  margin: 1px 0;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px
+}
+.DayPicker_weekHeader_li {
+  display: inline-block;
+  text-align: center
+}
+.DayPicker_transitionContainer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px
+}
+.DayPicker_transitionContainer__horizontal {
+  -webkit-transition: height .2s ease-in-out;
+  -moz-transition: height .2s ease-in-out;
+  transition: height .2s ease-in-out
+}
+.DayPicker_transitionContainer__vertical {
+  width: 100%
+}
+.DayPicker_transitionContainer__verticalScrollable {
+  padding-top: 20px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow-y: scroll
+}
+.DateInput {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  position: relative;
+  display: inline-block;
+  width: 130px;
+  vertical-align: middle
+}
+.DateInput__small {
+  width: 97px
+}
+.DateInput__block {
+  width: 100%
+}
+.DateInput__disabled {
+  background: #f2f2f2;
+  color: #dbdbdb
+}
+.DateInput_input {
+  font-weight: 200;
+  font-size: 19px;
+  line-height: 24px;
+  color: #484848;
+  background-color: #fff;
+  width: 100%;
+  padding: 11px 11px 9px;
+  border: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 2px solid transparent;
+  border-left: 0;
+  border-radius: 0
+}
+.DateInput_input__small {
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: .2px;
+  padding: 7px 7px 5px
+}
+.DateInput_input__regular {
+  font-weight: auto
+}
+.DateInput_input__readOnly {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none
+}
+.DateInput_input__focused {
+  outline: 0;
+  background: #fff;
+  border: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 2px solid #008489;
+  border-left: 0
+}
+.DateInput_input__disabled {
+  background: #f2f2f2;
+  font-style: italic
+}
+.DateInput_screenReaderMessage {
+  border: 0;
+  clip: rect(0,0,0,0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px
+}
+.DateInput_fang {
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  left: 22px;
+  z-index: 2
+}
+.DateInput_fangShape {
+  fill: #fff
+}
+.DateInput_fangStroke {
+  stroke: #dbdbdb;
+  fill: transparent
+}
+.DateRangePickerInput {
+  background-color: #fff;
+  display: inline-block
+}
+.DateRangePickerInput__disabled {
+  background: #f2f2f2
+}
+.DateRangePickerInput__withBorder {
+  border-radius: 2px;
+  border: 1px solid #dbdbdb
+}
+.DateRangePickerInput__rtl {
+  direction: rtl
+}
+.DateRangePickerInput__block {
+  display: block
+}
+.DateRangePickerInput__showClearDates {
+  padding-right: 30px
+}
+.DateRangePickerInput_arrow {
+  display: inline-block;
+  vertical-align: middle;
+  color: #484848
+}
+.DateRangePickerInput_arrow_svg {
+  vertical-align: middle;
+  fill: #484848;
+  height: 24px;
+  width: 24px
+}
+.DateRangePickerInput_clearDates {
+  background: 0 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 10px 0 5px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%)
+}
+.DateRangePickerInput_clearDates__small {
+  padding: 6px
+}
+.DateRangePickerInput_clearDates_default:focus,
+.DateRangePickerInput_clearDates_default:hover {
+  background: #dbdbdb;
+  border-radius: 50%
+}
+.DateRangePickerInput_clearDates__hide {
+  visibility: hidden
+}
+.DateRangePickerInput_clearDates_svg {
+  fill: #82888a;
+  height: 12px;
+  width: 15px;
+  vertical-align: middle
+}
+.DateRangePickerInput_clearDates_svg__small {
+  height: 9px
+}
+.DateRangePickerInput_calendarIcon {
+  background: 0 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 10px;
+  margin: 0 5px 0 10px
+}
+.DateRangePickerInput_calendarIcon_svg {
+  fill: #82888a;
+  height: 15px;
+  width: 14px;
+  vertical-align: middle
+}
+.DateRangePicker {
+  position: relative;
+  display: inline-block
+}
+.DateRangePicker__block {
+  display: block
+}
+.DateRangePicker_picker {
+  z-index: 1;
+  background-color: #fff;
+  position: absolute
+}
+.DateRangePicker_picker__rtl {
+  direction: rtl
+}
+.DateRangePicker_picker__directionLeft {
+  left: 0
+}
+.DateRangePicker_picker__directionRight {
+  right: 0
+}
+.DateRangePicker_picker__portal {
+  background-color: rgba(0,0,0,.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%
+}
+.DateRangePicker_picker__fullScreenPortal {
+  background-color: #fff
+}
+.DateRangePicker_closeButton {
+  background: 0 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px;
+  z-index: 2
+}
+.DateRangePicker_closeButton:focus,
+.DateRangePicker_closeButton:hover {
+  color: darken(#cacccd,10%);
+  text-decoration: none
+}
+.DateRangePicker_closeButton_svg {
+  height: 15px;
+  width: 15px;
+  fill: #cacccd
+}
+
+
+.DayPickerNavigation__verticalDefault {
+    text-align: center;
+    height: initial;
+    padding: 10px 0px;
+}
+
+.DayPickerNavigation_svg__vertical {
+    height: 20px;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9jb21wb25lbnRzL2Nzcy9yZWFjdC1kYXRlc0AyMC4xLjAtZml4LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixlQUFlO0lBQ2YsaUJBQWlCO0FBQ3JCOztBQUVBO0lBQ0ksWUFBWTtBQUNoQiIsInNvdXJjZXNDb250ZW50IjpbIi5EYXRlSW5wdXRfaW5wdXQge1xuICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG59XG5cbi5EYXlQaWNrZXJOYXZpZ2F0aW9uX192ZXJ0aWNhbERlZmF1bHQge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBoZWlnaHQ6IGluaXRpYWw7XG4gICAgcGFkZGluZzogMTBweCAwcHg7XG59XG5cbi5EYXlQaWNrZXJOYXZpZ2F0aW9uX3N2Z19fdmVydGljYWwge1xuICAgIGhlaWdodDogMjBweDtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Analyse Infrastruktur-Bestandsdaten</title>
+        <link rel="icon" type="image/x-icon" href="/_favicon.ico?v=2.15.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/style.css?m=1710238675.3882282">
+    <style>._dash-undo-redo {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    font-size: 20px;
+    text-align: center;
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.9);
+
+}
+._dash-undo-redo>div {
+    position: relative;
+}
+._dash-undo-redo-link {
+    color: #0074D9;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    opacity: 0.2;
+}
+._dash-undo-redo-link:hover {
+    opacity: 1;
+}
+._dash-undo-redo-link ._dash-icon-undo {
+    font-size: 20px;
+    transform: rotate(270deg);
+}
+._dash-undo-redo-link ._dash-icon-redo {
+    font-size: 20px;
+    transform: rotate(90deg);
+}
+._dash-undo-redo-link ._dash-undo-redo-label {
+    font-size: 15px;
+}
+</style><style>/**
+ * React Select
+ * ============
+ * Created by Jed Watson and Joss Mackison for KeystoneJS, http://www.keystonejs.com/
+ * https://twitter.com/jedwatson https://twitter.com/jossmackison https://twitter.com/keystonejs
+ * MIT License: https://github.com/JedWatson/react-select
+*/
+.Select {
+  position: relative;
+}
+.Select input::-webkit-contacts-auto-fill-button,
+.Select input::-webkit-credentials-auto-fill-button {
+  display: none !important;
+}
+.Select input::-ms-clear {
+  display: none !important;
+}
+.Select input::-ms-reveal {
+  display: none !important;
+}
+.Select,
+.Select div,
+.Select input,
+.Select span {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.Select.is-disabled .Select-arrow-zone {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.35;
+}
+.Select.is-disabled > .Select-control {
+  background-color: #f9f9f9;
+}
+.Select.is-disabled > .Select-control:hover {
+  box-shadow: none;
+}
+.Select.is-open > .Select-control {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background: #fff;
+  border-color: #b3b3b3 #ccc #d9d9d9;
+}
+.Select.is-open > .Select-control .Select-arrow {
+  top: -2px;
+  border-color: transparent transparent #999;
+  border-width: 0 5px 5px;
+}
+.Select.is-searchable.is-open > .Select-control {
+  cursor: text;
+}
+.Select.is-searchable.is-focused:not(.is-open) > .Select-control {
+  cursor: text;
+}
+.Select.is-focused > .Select-control {
+  background: #fff;
+}
+.Select.is-focused:not(.is-open) > .Select-control {
+  border-color: #007eff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(0, 126, 255, 0.1);
+  background: #fff;
+}
+.Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
+  padding-right: 42px;
+}
+.Select.has-value.Select--single > .Select-control .Select-value .Select-value-label,
+.Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
+  color: #333;
+}
+.Select.has-value.Select--single > .Select-control .Select-value a.Select-value-label,
+.Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label {
+  cursor: pointer;
+  text-decoration: none;
+}
+.Select.has-value.Select--single > .Select-control .Select-value a.Select-value-label:hover,
+.Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label:hover,
+.Select.has-value.Select--single > .Select-control .Select-value a.Select-value-label:focus,
+.Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label:focus {
+  color: #007eff;
+  outline: none;
+  text-decoration: underline;
+}
+.Select.has-value.Select--single > .Select-control .Select-value a.Select-value-label:focus,
+.Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label:focus {
+  background: #fff;
+}
+.Select.has-value.is-pseudo-focused .Select-input {
+  opacity: 0;
+}
+.Select.is-open .Select-arrow,
+.Select .Select-arrow-zone:hover > .Select-arrow {
+  border-top-color: #666;
+}
+.Select.Select--rtl {
+  direction: rtl;
+  text-align: right;
+}
+.Select-control {
+  background-color: #fff;
+  border-color: #d9d9d9 #ccc #b3b3b3;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  color: #333;
+  cursor: default;
+  display: table;
+  border-spacing: 0;
+  border-collapse: separate;
+  height: 36px;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.Select-control:hover {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+.Select-control .Select-input:focus {
+  outline: none;
+  background: #fff;
+}
+.Select-placeholder,
+.Select--single > .Select-control .Select-value {
+  bottom: 0;
+  color: #aaa;
+  left: 0;
+  line-height: 34px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.Select-input {
+  height: 34px;
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+}
+.Select-input > input {
+  width: 100%;
+  background: none transparent;
+  border: 0 none;
+  box-shadow: none;
+  cursor: default;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  outline: none;
+  line-height: 17px;
+  /* For IE 8 compatibility */
+  padding: 8px 0 12px
+}
+.is-focused .Select-input > input {
+  cursor: text;
+}
+.has-value.is-pseudo-focused .Select-input {
+  opacity: 0;
+}
+.Select-control:not(.is-searchable) > .Select-input {
+  outline: none;
+}
+.Select-loading-zone {
+  cursor: pointer;
+  display: table-cell;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 16px;
+}
+.Select-loading {
+  -webkit-animation: Select-animation-spin 400ms infinite linear;
+  -o-animation: Select-animation-spin 400ms infinite linear;
+  animation: Select-animation-spin 400ms infinite linear;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-right-color: #333;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+.Select-clear-zone {
+  -webkit-animation: Select-animation-fadeIn 200ms;
+  -o-animation: Select-animation-fadeIn 200ms;
+  animation: Select-animation-fadeIn 200ms;
+  color: #999;
+  cursor: pointer;
+  display: table-cell;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 17px;
+}
+.Select-clear-zone:hover {
+  color: #D0021B;
+}
+.Select-clear {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1;
+}
+.Select--multi .Select-clear-zone {
+  width: 17px;
+}
+.Select-arrow-zone {
+  cursor: pointer;
+  display: table-cell;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 25px;
+  padding-right: 5px;
+}
+.Select--rtl .Select-arrow-zone {
+  padding-right: 0;
+  padding-left: 5px;
+}
+.Select-arrow {
+  border-color: #999 transparent transparent;
+  border-style: solid;
+  border-width: 5px 5px 2.5px;
+  display: inline-block;
+  height: 0;
+  width: 0;
+  position: relative;
+}
+.Select-control > *:last-child {
+  padding-right: 5px;
+}
+.Select--multi .Select-multi-value-wrapper {
+  display: inline-block;
+}
+.Select .Select-aria-only {
+  position: absolute;
+  display: inline-block;
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden
+}
+@-webkit-keyframes Select-animation-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes Select-animation-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.Select-menu-outer {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top-color: #e6e6e6;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  margin-top: -1px;
+  max-height: 200px;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  z-index: 1;
+  -webkit-overflow-scrolling: touch;
+}
+.Select-menu {
+  max-height: 198px;
+  overflow-y: auto;
+}
+.Select-option {
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #666666;
+  cursor: pointer;
+  display: block;
+  padding: 8px 10px;
+}
+.Select-option:last-child {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.Select-option.is-selected {
+  background-color: #f5faff;
+  /* Fallback color for IE 8 */
+  background-color: rgba(0, 126, 255, 0.04);
+  color: #333;
+}
+.Select-option.is-focused {
+  background-color: #ebf5ff;
+  /* Fallback color for IE 8 */
+  background-color: rgba(0, 126, 255, 0.08);
+  color: #333;
+}
+.Select-option.is-disabled {
+  color: #cccccc;
+  cursor: default;
+}
+.Select-noresults {
+  box-sizing: border-box;
+  color: #999999;
+  cursor: default;
+  display: block;
+  padding: 8px 10px;
+}
+.Select--multi .Select-input {
+  vertical-align: middle;
+  margin-left: 10px;
+  padding: 0;
+}
+.Select--multi.Select--rtl .Select-input {
+  margin-left: 0;
+  margin-right: 10px;
+}
+.Select--multi.has-value .Select-input {
+  margin-left: 5px;
+}
+.Select--multi .Select-value {
+  background-color: #ebf5ff;
+  /* Fallback color for IE 8 */
+  background-color: rgba(0, 126, 255, 0.08);
+  border-radius: 2px;
+  border: 1px solid #c2e0ff;
+  /* Fallback color for IE 8 */
+  border: 1px solid rgba(0, 126, 255, 0.24);
+  color: #007eff;
+  display: inline-block;
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin-left: 5px;
+  margin-top: 5px;
+  vertical-align: top;
+}
+.Select--multi .Select-value-icon,
+.Select--multi .Select-value-label {
+  display: inline-block;
+  vertical-align: middle;
+}
+.Select--multi .Select-value-label {
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
+  cursor: default;
+  padding: 2px 5px;
+}
+.Select--multi a.Select-value-label {
+  color: #007eff;
+  cursor: pointer;
+  text-decoration: none;
+}
+.Select--multi a.Select-value-label:hover {
+  text-decoration: underline;
+}
+.Select--multi .Select-value-icon {
+  cursor: pointer;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  border-right: 1px solid #c2e0ff;
+  /* Fallback color for IE 8 */
+  border-right: 1px solid rgba(0, 126, 255, 0.24);
+  padding: 1px 5px 3px;
+}
+.Select--multi .Select-value-icon:hover,
+.Select--multi .Select-value-icon:focus {
+  background-color: #d8eafd;
+  /* Fallback color for IE 8 */
+  background-color: rgba(0, 113, 230, 0.08);
+  color: #0071e6;
+}
+.Select--multi .Select-value-icon:active {
+  background-color: #c2e0ff;
+  /* Fallback color for IE 8 */
+  background-color: rgba(0, 126, 255, 0.24);
+}
+.Select--multi.Select--rtl .Select-value {
+  margin-left: 0;
+  margin-right: 5px;
+}
+.Select--multi.Select--rtl .Select-value-icon {
+  border-right: none;
+  border-left: 1px solid #c2e0ff;
+  /* Fallback color for IE 8 */
+  border-left: 1px solid rgba(0, 126, 255, 0.24);
+}
+.Select--multi.is-disabled .Select-value {
+  background-color: #fcfcfc;
+  border: 1px solid #e3e3e3;
+  color: #333;
+}
+.Select--multi.is-disabled .Select-value-icon {
+  cursor: not-allowed;
+  border-right: 1px solid #e3e3e3;
+}
+.Select--multi.is-disabled .Select-value-icon:hover,
+.Select--multi.is-disabled .Select-value-icon:focus,
+.Select--multi.is-disabled .Select-value-icon:active {
+  background-color: #fcfcfc;
+}
+@keyframes Select-animation-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@-webkit-keyframes Select-animation-spin {
+  to {
+    -webkit-transform: rotate(1turn);
+  }
+}
+
+
+
+</style><style>.dash-spreadsheet.dash-freeze-left,
+.dash-spreadsheet.dash-freeze-top {
+  width: auto;
+  width: fit-content;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+}
+.dash-spreadsheet.dash-freeze-left {
+  max-width: 500px;
+}
+.dash-spreadsheet.dash-freeze-top,
+.dash-spreadsheet.dash-virtualized {
+  max-height: 500px;
+}
+.dash-tooltip {
+  border: 1px solid #e4e4e4;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 500;
+}
+.dash-tooltip .dash-table-tooltip {
+  position: relative;
+  background-color: #f6f6f6;
+  max-width: 300px;
+  min-width: 300px;
+  padding: 2px 10px;
+}
+.dash-tooltip[data-attr-anchor='top'] {
+  margin-top: 10px;
+}
+.dash-tooltip[data-attr-anchor='top']:after,
+.dash-tooltip[data-attr-anchor='top']:before {
+  bottom: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.dash-tooltip[data-attr-anchor='top']:after {
+  border-color: transparent;
+  border-bottom-color: #f6f6f6;
+  border-width: 8px;
+  margin-left: -8px;
+}
+.dash-tooltip[data-attr-anchor='top']:before {
+  border-color: transparent;
+  border-bottom-color: #e4e4e4;
+  border-width: 9px;
+  margin-left: -9px;
+}
+.dash-tooltip[data-attr-anchor='bottom'] {
+  margin-bottom: 10px;
+}
+.dash-tooltip[data-attr-anchor='bottom']:after,
+.dash-tooltip[data-attr-anchor='bottom']:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.dash-tooltip[data-attr-anchor='bottom']:after {
+  border-color: transparent;
+  border-top-color: #f6f6f6;
+  border-width: 8px;
+  margin-left: -8px;
+}
+.dash-tooltip[data-attr-anchor='bottom']:before {
+  border-color: transparent;
+  border-top-color: #e4e4e4;
+  border-width: 9px;
+  margin-left: -9px;
+}
+
+</style><style id="plotly.js-style-global"></style><style id="plotly.js-style-modebar-415892"></style></head>
+    <body>
+        
+<div id="react-entry-point">
+  <div class="container-fluid">
+      <nav color="light" class="mt-4 navbar navbar-expand-md navbar-light bg-light" style="background-color: white;">
+          <div class="container">
+              <a href="/myapp/main" class="navbar-brand" style="color: rgb(0, 51, 102);">
+                  Startseite
+              </a>
+              <button n_clicks="0" n_clicks_timestamp="-1" type="button" aria-label="Toggle navigation" class="navbar-toggler collapsed">
+                  <span class="navbar-toggler-icon">
+                  </span>
+              </button>
+                  <div class="navbar-collapse collapse">
+                      <div class="ms-auto navbar-nav">
+
+                      </div></div></div></nav>
+      <div class="row">
+          <div id="page-content" class="col-12">
+              <div class="mb-3 card" style="background: linear-gradient(rgb(0, 51, 102) 0%, rgb(0, 0, 51) 100%); color: rgb(255, 255, 255); border-radius: 15px;">
+                  <div class="card-body">
+                      <h1 class="card-title text-center" style="color: rgb(255, 255, 255);">
+                          Analyse Infrastruktur-Bestandsdaten
+                      </h1>
+                      <h1 class="card-title text-center" style="color: rgb(255, 0, 0); font-size: 20px;">
+                          Prototyp
+                      </h1>
+                  </div>
+              </div>
+              <div class="mb-5">
+                  <div>
+                      <p>
+                          <strong>
+                              Die Analyse von Infrastruktur-Bestandsdaten ermöglicht:
+                          </strong>
+                      </p>
+                      <ul>
+                          <li>
+                              Auswertung von Details zu Strecken und Anlagen
+                          </li>
+                          <li>
+                              Tabellarische und geographische Darstellung
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="mb-4 card" style="box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px;">
+                  <div class="card-body">
+                      <div style="text-align: center; font-size: 24px; color: rgb(0, 51, 102);">
+                          Strecken-Informationen
+                      </div>
+                      <hr>
+                      <div class="container">
+                        <div class="filter-form card card-body bg-light">
+                            <form method="get" class="form-inline">
+                                {% for field in filters.form %}
+                                    <div class="form-group mb-2">
+                                        {{ field.label_tag }} {{ field }}
+                                    </div>
+                                {% endfor %}
+                                <button type="submit" class="btn btn-primary mb-2">Filtern</button>
+                    
+                                <!-- New row for downloads -->
+                                <div class="row" style="align-items: center; width: 100%;">
+                                    <!-- Text in front of buttons -->
+                                    <div class="col-auto">
+                                        Downloads:
+                                    </div>
+                                    <!-- Buttons -->
+                                    <div class="col-auto">
+                                        <button type="submit" name="download-csv" value="true" onclick="removePageParam()" class="btn" style="padding: 0; border: none; background: none;">
+                                            <img src="{% static 'myapp/images/csv.png' %}" alt="Download CSV" style="width: 50px; height: auto;">
+                                        </button>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" name="download-excel" value="true" onclick="removePageParam()" class="btn" style="padding: 0; border: none; background: none;">
+                                            <img src="{% static 'myapp/images/xlsx.png' %}" alt="Download Excel" style="width: 50px; height: auto;">
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                      </div>
+                    
+                    
+                    
+                    
+                      <script>
+                        function removePageParam() {
+                            // This function removes the 'page' parameter from the query string before downloading
+                            var urlParams = new URLSearchParams(window.location.search);
+                            urlParams.delete('page');  // Remove 'page' parameter
+                            history.replaceState(null, null, "?" + urlParams.toString());  // Update the URL
+                        }
+                      </script>
+                    
+                      <div class="results-table">
+                        <div class="table-responsive"> <!-- Wrapper div for making the table scrollable -->
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        {% for field in fields %}
+                                            <th scope="col">{{ field.verbose_name|capfirst }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in page_obj %}
+                                        <tr>
+                                            {% for field in fields %}
+                                                <td>{{ item|get_field_value:field.name }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% empty %}
+                                        <tr><td colspan="{{ fields|length }}">No data found</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                      </div>
+                    
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page=1" class="btn btn-outline-secondary">&laquo; erste</a>
+                                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary">vorherige</a>
+                                {% endif %}
+                    
+                                <span class="current mx-2">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+                    
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-secondary">nächste</a>
+                                    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-secondary">letzte &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                  </div>    
+              </div>
+              
+              <div class="mb-4 card" style="box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px;">
+                  <div class="card-body">
+                      <div style="text-align: center; font-size: 24px; color: rgb(0, 51, 102);">
+                          Informationen zu Anlagen auf ausgewählter Strecke
+                      </div>
+                      <hr>
+                      <div>
+                        <div class="row">
+                          <div class="container my-4">
+                            
+                            <div class="card card-body" style="background-color: #f9f9f9; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                              <h5 class="card-title" style="color: rgb(0, 51, 102); margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px;">Filter</h5>
+                                <form method="get" class="form" action="{% url 'myapp:analysis_view' %}">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!-- Render the label for the selected_options field group only once -->
+                                            <label>{{ form.selected_options.label }}</label>
+                                            <div>
+                                                {% for field in form.selected_options %}
+                                                    <div class="my-2">
+                                                        {{ field }} <!-- Render the checkbox -->
+                                                        <!-- Render a custom label for each checkbox using the widget's attrs to get the ID -->
+                                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Correctly render the label text next to each checkbox -->
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                      </div>
+                                    
+                        
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                              <!-- Render the form field for Bundesländer -->
+                                              {{ form.selected_bundeslaender.label_tag }}
+                                              <div style="columns: 2; -webkit-columns: 2; -moz-columns: 2;"> <!-- Adjusted to display checkboxes in two columns -->
+                                                  {{ form.selected_bundeslaender }}
+                                              </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                        
+                                    <!-- Hidden input for Streckennummer to preserve the filter across submissions -->
+                                    {% if request.GET.STR_NR %}
+                                        <input type="hidden" name="STR_NR" value="{{ request.GET.STR_NR }}">
+                                    {% endif %}
+                        
+                                    <button type="submit" class="btn btn-primary mt-2">Filter</button>
+                                </form>
+                            </div>
+                          </div>
+
+                          <div class="container my-4">
+                            <div class="card card-body" style="background-color: #f9f9f9; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                <h5 class="card-title" style="color: rgb(0, 51, 102); margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px;">Anzahl und Summen der Anlagen</h5>
+                                <div class="row">
+                                    <!-- Counts column -->
+                                    <div class="col-md-6" style="padding-left: 20px;">
+                                        {% for model_key, count in counts.items %}
+                                          <p style="font-size: 16px; color: #555;">
+                                              <span style="font-weight: bold; color: rgb(0, 51, 102);">{{ model_key }}:</span> 
+                                              <span class="number-count">{{ count }}</span>
+                                          </p>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- Sums column -->
+                                    <div class="col-md-6" style="padding-left: 20px;">
+                                      {% load custom_filters %}  <!-- Make sure you have this line to load your custom filters -->
+
+                                      {% for sum_key, sum_value in sums.items %}
+                                          <p class="number-format" style="font-size: 16px; color: #555;">
+                                              <span style="font-weight: bold; color: rgb(0, 51, 102);">{{ sum_key }}:</span> 
+                                              {{ sum_value|intdot }}
+                                              {% if 'Fläche' in sum_key %}m²{% elif 'Länge' in sum_key %}km{% endif %}
+                                          </p>
+                                      {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        
+                        
+
+
+                        </div>
+                  
+                        <!-- Check if there's any data to display -->
+                        {% if model_data %}
+                          {% for model_key, model_info in model_data.items %}
+                            <details>
+                              <summary><div style="text-align: center; font-size: 24px; color: rgb(0, 51, 102);">{{ model_key|title }}</div><Hr></summary>
+                              <!-- Download Buttons for each category -->
+                              <form method="get" class="form" action="{% url 'myapp:analysis_view' %}">
+                                <div class="row" style="align-items: center; width: 100%; margin-bottom: 20px;">
+                                  <div class="col-auto">
+                                      Downloads:
+                                  </div>
+                                  <!-- CSV Download Button -->
+                                  <div class="col-auto">
+                                      <button type="submit" name="download-csv-{{ model_key }}" value="true" onclick="removePageParam()" class="btn" style="padding: 0; border: none; background: none;">
+                                          <img src="{% static 'myapp/images/csv.png' %}" alt="Download CSV" style="width: 50px; height: auto;">
+                                      </button>
+                                  </div>
+                                  <!-- Excel Download Button -->
+                                  <div class="col-auto">
+                                      <button type="submit" name="download-excel-{{ model_key }}" value="true" onclick="removePageParam()" class="btn" style="padding: 0; border: none; background: none;">
+                                          <img src="{% static 'myapp/images/xlsx.png' %}" alt="Download Excel" style="width: 50px; height: auto;">
+                                      </button>
+                                  </div>
+                                </div>
+                              </form>
+                              <div class="dropdown mb-3">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton-{{ model_key }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Spaltenauswahl
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ model_key }}">
+                                  <!-- Reset Button at the top -->
+                                  <button type="button" class="dropdown-item reset-columns" data-model="{{ model_key }}">Spalten zurücksetzen</button>
+                                  <div class="dropdown-divider"></div> <!-- Divider to separate the Reset button from column options -->
+                                
+                                  {% for field_name in model_info.fields %}
+                                    <label class="dropdown-item">
+                                      <input type="checkbox" class="column-toggle" data-model="{{ model_key }}" data-column="{{ field_name }}" checked> {{ field_name }}
+                                    </label>
+                                  {% endfor %}
+                                </div>
+                              </div>
+                              <div class="results-table">
+                                <div class="table-responsive"> <!-- Wrapper div for making the table scrollable -->
+                                  <table class="table table-striped table-bordered table-hover" data-model="{{ model_key }}">
+                                    <thead class="thead-dark">
+                                      <tr>
+                                        {% for field_name in model_info.fields %}
+                                          <th data-column="{{ field_name }}">{{ field_name }}</th>
+                                        {% endfor %}
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for item in model_info.page_obj %}
+                                        <tr>
+                                          {% for field_name in model_info.fields %}
+                                            <td data-column="{{ field_name }}">
+                                              {{ item|get_field_value:field_name|default:"N/A" }}
+                                            </td>
+                                          {% endfor %}
+                                        </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                  
+                                </div>
+                              </div>
+                              
+                              <!-- Pagination controls -->
+                              <div class="pagination">
+                                <span class="step-links">
+                                    {% if model_info.page_obj.has_previous %}
+                                        <!-- 'First' button for the second table -->
+                                        <a href="?page_{{ model_key }}=1&{{ request.GET.urlencode|safe }}" class="btn btn-outline-secondary">&laquo; erste</a>
+                                        <!-- 'Previous' button for the second table -->
+                                        <a href="?page_{{ model_key }}={{ model_info.page_obj.previous_page_number }}&{{ request.GET.urlencode|safe }}" class="btn btn-outline-secondary">vorherige</a>
+                                    {% endif %}
+                            
+                                    <span class="current mx-2">
+                                        Page {{ model_info.page_obj.number }} of {{ model_info.page_obj.paginator.num_pages }}.
+                                    </span>
+                            
+                                    {% if model_info.page_obj.has_next %}
+                                        <!-- 'Next' button for the second table -->
+                                        <a href="?page_{{ model_key }}={{ model_info.page_obj.next_page_number }}&{{ request.GET.urlencode|safe }}" class="btn btn-outline-secondary">nächste</a>
+                                        <!-- 'Last' button for the second table -->
+                                        <a href="?page_{{ model_key }}={{ model_info.page_obj.paginator.num_pages }}&{{ request.GET.urlencode|safe }}" class="btn btn-outline-secondary">letzte &raquo;</a>
+                                    {% endif %}
+                                </span>
+                              </div>
+                            </details>
+                          {% endfor %}
+                        {% else %}
+                            <p>No data selected for display.</p>
+                        {% endif %}
+                      </div>  
+                  </div>
+               </div> 
+            </div>    
+
+              <div class="mb-4 card" style="box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px;">
+                  <div class="card-body">
+                      <div style="text-align: center; font-size: 24px; color: rgb(0, 51, 102);">
+                        Geoplot Strecken, Weichen, Bahnübergänge, Brücken und Tunnel
+                      </div>
+                      <hr>
+                      <div id="plotly-map" >
+                        {{ plot_html|safe }}
+                      </div>   
+                  </div>
+              </div>     
+              
+              <div class="footer mt-5 container-fluid" style="background-color: rgb(248, 249, 250); padding: 40px 20px; border-top: 1px solid rgb(222, 226, 230);">
+                  <div class="justify-content-around row">
+                    <div class="mb-3 d-flex justify-content-center col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      <img src="{% static 'myapp/images/bmdv_logo.png' %}" style="width: auto; height: 140px; margin-bottom: 20px;">
+                    </div>
+                    <div class="mb-3 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      <h2 style="font-weight: bold; font-size: 1.25em;">Optimierung des Schienen Datenmanagements</h2>
+                      <p style="font-size: 0.9em;">Funktionsfähiger Prototyp einer Datenbank für die zentrale Bündelung von Infrastruktur-Bestandsdaten</p>
+                      <p style="font-weight: bold; margin-top: 20px;">Zielstellung:</p>
+                      <ul>
+                        <li style="font-size: 0.9em;">SSOT: Verbesserte Qualitätskontrolle und konsistente Informationen</li>
+                        <li style="font-size: 0.9em;">Reduzierter Zeitaufwand für Datenabfrage und -verarbeitung</li>
+                        <li style="font-size: 0.9em;">Transparenz über vorhandene Daten</li>
+                      </ul>
+                      <p style="font-size: 0.9em;">Verknüpfung diverser Datenquellen in zentraler Datenbank</p>
+                    </div>
+                    <div class="mb-3 d-flex flex-column align-items-center col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                      <h2 style="font-weight: bold; font-size: 1.25em;">Datenquellen</h2>
+                      <img src="{% static 'myapp/images/infrago_logo.png' %}" style="width: 20%; margin-bottom: 15px;">
+                      <img src="{% static 'myapp/images/mobilithek_logo.png' %}" style="width: 20%; margin-bottom: 15px;">
+                      <img src="{% static 'myapp/images/EBA-Logo.png' %}" style="width: 20%; margin-bottom: 15px;">
+                      <img src="{% static 'myapp/images/openstreetmap_logo.png' %}" style="width: 20%; margin-bottom: 15px;">
+                      <img src="{% static 'myapp/images/umweltbundesamt_logo.png' %}" style="width: 20%; margin-bottom: 15px;">
+                    </div>
+                  </div>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+                <script>
+                  document.querySelectorAll('.number').forEach(function(element) {
+                      var number = parseInt(element.textContent.replace(/\D/g,''));
+                      var formattedNumber = number.toLocaleString('de-DE').replace(/,/g, '.');
+                      element.textContent = formattedNumber;
+                  });
+                </script>
+  
+                <script>
+                  document.querySelectorAll('.number-count').forEach(function(element) {
+                      var number = parseInt(element.textContent.replace(/\D/g,''));
+                      var formattedNumber = number.toLocaleString('de-DE').replace(/,/g, '.');
+                      element.textContent = formattedNumber;
+                  });
+                </script>
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    // Function to toggle column visibility
+                    function toggleColumnVisibility(modelKey, columnName, isVisible) {
+                      document.querySelectorAll(`table[data-model="${modelKey}"] th, table[data-model="${modelKey}"] td`).forEach(function(cell) {
+                        if (cell.dataset.column === columnName) {
+                          cell.style.display = isVisible ? '' : 'none';
+                        }
+                      });
+                    }
+                  
+                    // Event listener for checkbox changes
+                    document.querySelectorAll('.column-toggle').forEach(function(checkbox) {
+                      checkbox.addEventListener('change', function(event) {
+                        const modelKey = this.getAttribute('data-model');
+                        const columnName = this.getAttribute('data-column');
+                        const isVisible = this.checked;
+                        toggleColumnVisibility(modelKey, columnName, isVisible);
+                  
+                        // Prevent the click event from closing the dropdown
+                        event.stopPropagation();
+                      });
+                    });
+                  
+                    // Prevent the dropdown from closing when the label or checkbox is clicked
+                    document.querySelectorAll('.dropdown-menu label').forEach(function(label) {
+                      label.addEventListener('click', function(event) {
+                        event.stopPropagation();
+                      });
+                    });
+                  
+                    // Reset button functionality
+                    document.querySelectorAll('.reset-columns').forEach(function(button) {
+                      button.addEventListener('click', function() {
+                        const modelKey = this.getAttribute('data-model');
+                        // Check all checkboxes in the same dropdown and update column visibility
+                        document.querySelectorAll(`.column-toggle[data-model="${modelKey}"]`).forEach(function(checkbox) {
+                          checkbox.checked = true; // Check the checkbox
+                          const columnName = checkbox.getAttribute('data-column');
+                          toggleColumnVisibility(modelKey, columnName, true); // Show the column
+                        });
+                      });
+                    });
+                  });
+                </script>
+                  
+                  
+                  
+              </body>
+              </html>                  
+
+              
+              
+
+       
